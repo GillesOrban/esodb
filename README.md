@@ -10,14 +10,12 @@ The setup should be relatively straight forward.
 `$OBSDBDIR` -- path to these scripts and the database
 `$OBSDB` -- path to the database
 `$OBSDBLOCAL` -- path to a directory holding all the raw data files, can be identical to OBSDBDIR
-
-for a bash shell you could use these lines of code:
+For a bash shell you could use these lines of code:
 ```
 export OBSDBDIR="$HOME/OBSDB"
 export OBSDB="$OBSDBDIR/obs.db"
 export OBSDBLOCAL="$HOME/OBSDB-Local"
 ```
-
 2. Create an empty SQLite database with this structure:
 ```
 CREATE TABLE prog(prog varchar PRIMARY KEY,picoi varchar,title varchar);
@@ -28,7 +26,6 @@ CREATE TABLE dimm(dateobs date PRIMARY KEY,ra real,dec real,seeing real, airmass
 CREATE TABLE shoot(ra real, dec real, dprtype varchar, dprtech varchar, dit real, ndit int, prog varchar, object varchar, airm_start real, dateobs date PRIMARY KEY, night char, lst real, arcfile varchar, fwhm_start real, fwhm_end real, ob_name varchar, opti2_name varchar, opti3_name varchar, opti4_name varchar, opti5_name varchar, arm varchar, clock varchar, posang real, parang_start real, parang_end real, obs_id varchar);
 CREATE TABLE midi(ra real, dec real, dprtype varchar, dprcatg varchar, shut_name varchar, beamcombiner varchar, filt_name varchar, gris_name varchar, nrts_mode varchar, chopfrq real, tel varchar, prog varchar, dateobs date PRIMARY KEY, night char, lst real, dit real, ndit int, object varchar, airm_start real, arcfile varchar, fwhm_start real, fwhm_end real, ob_name varchar, bl_start real, pa_start real);
 ```
-
 3. Run init_obsdb.sh
 
 
