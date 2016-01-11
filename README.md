@@ -3,6 +3,12 @@
 ## Purpose
 esodb is a set of scripts that allow you to download the relevant header information for all observations of selected ESO instruments. The downloaded headers are parsed and stored in a SQLite database for further use. Such a database can be useful for various archive studies, e.g. finding all objects ever observed with an instrument. We did such a study in 2015 and looked for local AGNs observed with SINFONI. About half of the data in the archive, despite many years old, had never been published. In our summary paper ([Burtscher et al. 2015](http://adsabs.harvard.edu/abs/2015A%26A...578A..47B)) we collected high-resolution data for 51 AGNs.
 
+### Quick access to database
+If you wish to use the database for the same three instruments I am interested in (MIDI, SINFONI, X-SHOOTER), feel free to download your copy from http://www.mpe.mpg.de/~burtscher/obs.db.bz2 (last updated 4 Jan 2016). I will update the database there only infrequently, so if you would like a more recent version, please contact me.
+
+### Do it yourself
+Alternatively, you can download the scripts from here and create this database for the instruments of your choice yourself.
+
 ## Setup
 The setup should be relatively straight forward.
 
