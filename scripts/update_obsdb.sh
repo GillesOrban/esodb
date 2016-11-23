@@ -37,6 +37,15 @@ function update_ins {
 		dpid_tmp=$OBSDBLOCAL/data/DPID/VISIR.txt
 		dpid_all=$OBSDBLOCAL/data/DPID/VISIR_all.txt
 	fi
+	elif [[ $INS == "GRAVITY" ]]; then
+		table="gravity"
+		instrument="gravity"
+		hdr2sql_script=$OBSDBDIR/scripts/hdr2sqlite_GRAVITY.sh
+		sqlfile=$OBSDBLOCAL/data/GRAVITY/SQL/insert.sql
+		htmlfiles=$OBSDBLOCAL/data/GRAVITY/html/*.html
+		dpid_tmp=$OBSDBLOCAL/data/DPID/GRAVITY.txt
+		dpid_all=$OBSDBLOCAL/data/DPID/GRAVITY_all.txt
+	fi
 
 	##
 	## re-download data from last day (will cause some duplication that database should catch)
@@ -75,6 +84,9 @@ update_ins "SHOOT"
 
 echo "Updating OBSDB with VISIR observations..."
 update_ins "VISIR"
+
+echo "Updating OBSDB with GRAVITY observations..."
+update_ins "GRAVITY"
 ##
 ## update info about programmes
 echo "Updating information about observing programmes..."
