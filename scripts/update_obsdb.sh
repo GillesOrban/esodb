@@ -3,6 +3,10 @@
 ##
 ## Table dimm has to be updated manually, see instructions in README.update-db.txt
 ##
+## CHANGE LOG
+##
+## 2016-11-14   added VISIR to regular updates
+##
 function update_ins {
 
 	INS=$1
@@ -24,6 +28,14 @@ function update_ins {
 		htmlfiles=$OBSDBLOCAL/data/SHOOT/html/*.html
 		dpid_tmp=$OBSDBLOCAL/data/DPID/SHOOT.txt
 		dpid_all=$OBSDBLOCAL/data/DPID/SHOOT_all.txt
+	elif [[ $INS == "VISIR" ]]; then
+		table="visir"
+		instrument="visir"
+		hdr2sql_script=$OBSDBDIR/scripts/hdr2sqlite_VISIR.sh
+		sqlfile=$OBSDBLOCAL/data/VISIR/SQL/insert.sql
+		htmlfiles=$OBSDBLOCAL/data/VISIR/html/*.html
+		dpid_tmp=$OBSDBLOCAL/data/DPID/VISIR.txt
+		dpid_all=$OBSDBLOCAL/data/DPID/VISIR_all.txt
 	fi
 
 	##
@@ -60,6 +72,9 @@ update_ins "SINFO"
 
 echo "Updating OBSDB with X-SHOOTER observations..."
 update_ins "SHOOT"
+
+echo "Updating OBSDB with VISIR observations..."
+update_ins "VISIR"
 ##
 ## update info about programmes
 echo "Updating information about observing programmes..."

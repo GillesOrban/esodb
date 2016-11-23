@@ -5,6 +5,7 @@
 ## or
 ## sh get_hdrs_INS.sh "SHOOT" "xshooter" 2008 11 13 ## from the beginning of the XSHOOTER age
 ## sh get_hdrs_INS.sh "MIDI" "midi" 2004 04 07 ## from the beginning of the MIDI age (last obst: 2015-03-05)
+## sh get_hdrs_INS.sh "VISIR" "visir" 2004 05 01 ## from the beginning of VISIR
 
 INS=$1
 ins_form=$2
