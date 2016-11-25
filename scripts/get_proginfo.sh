@@ -80,6 +80,11 @@ while read prog; do
 	fi
 done < $newprogs
 
+if [ ! -e $sqlfile ]; then
+	echo "sql file $sqlfile does not exist (no new programmes found)."
+	exit
+fi
+
 sqlite3 $OBSDB < $sqlfile
 nprog=`wc -l $sqlfile`
 echo "Inserted $nprog new programmes into OBSDB."

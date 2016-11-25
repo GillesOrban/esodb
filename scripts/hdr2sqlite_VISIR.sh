@@ -1,28 +1,6 @@
 # SQL table definition
 # 
-# CREATE TABLE visir(
-# ra real,
-# dec real,
-# dprtype varchar,
-# dprtech varchar,
-# dprcatg varchar,
-# filt1 varchar,
-# grat1 varchar,
-# dit real,
-# ndit int,
-# prog varchar,
-# object varchar,
-# airm_start real,
-# dateobs date PRIMARY KEY,
-# night char,
-# lst real,
-# arcfile varchar,
-# fwhm_start real,
-# fwhm_end real,
-# ob_name varchar,
-# chop_freq real
-# , parang_start real, parang_end real, ada_start real, ada_end real, posang real, alt real, az real);
-
+# CREATE TABLE visir(ra real, dec real, dateobs date PRIMARY KEY, night char, lst real, arcfile varchar, alt real, az real, dprtype varchar, dprtech varchar, dprcatg varchar, filt1 varchar, grat1 varchar, dit real, ndit int, exptime real, chop_ncycles int, prog varchar, object varchar, ob_name varchar, chopnod_dir varchar, nodpos varchar, chop_freq real, parang_start real, parang_end real, chop_posang real, chop_throw real, ada_start real, ada_end real, ada_posang real, fwhm_start real, fwhm_end real, irsky_temp real, iwv_start real, press_start real, rhum real, temp real, winddir real, windspeed real);
 ##
 ## CHANGE LOG
 ##
@@ -102,12 +80,12 @@ while read DPID; do
 	## ADA keywords (Adapter-Rotator)	
 	ada_start=`less $HDRfile | grep 'HIERARCH ESO ADA ABSROT START' | awk -F " " '{print $7}'`
 	ada_end=`less $HDRfile | grep 'HIERARCH ESO ADA ABSROT END' | awk -F " " '{print $7}'`
-	ada_posang=`less $HDRfile | grep 'HIERARCH ESO ADA POSANG' | awk -F " " '{print $6}'`
+	ada_posang=`less $HDRfile | grep 'HIERARCH ESO ADA POSANG END' | awk -F " " '{print $7}'`
 	
 	##
 	## AMBI keywords
-	fwhm_start=`less $HDRfile | grep 'AMBI FWHM START = ' | awk -F " " '{print $8}'`
-	fwhm_end=`less $HDRfile | grep 'AMBI FWHM END' | awk -F " " '{print $8}'`
+	fwhm_start=`less $HDRfile | grep 'HIERARCH ESO TEL AMBI FWHM START = ' | awk -F " " '{print $8}'`
+	fwhm_end=`less $HDRfile | grep 'HIERARCH ESO TEL AMBI FWHM END' | awk -F " " '{print $8}'`
 	irsky_temp=`less $HDRfile | grep 'HIERARCH ESO TEL AMBI IRSKY TEMP = ' | awk -F " " '{print $8}'`
 	iwv_start=`less $HDRfile | grep 'HIERARCH ESO TEL AMBI IWV START = ' | awk -F " " '{print $8}'`
 	press_start=`less $HDRfile | grep 'HIERARCH ESO TEL AMBI PRES START = ' | awk -F " " '{print $8}'`
