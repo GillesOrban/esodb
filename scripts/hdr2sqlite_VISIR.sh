@@ -24,26 +24,26 @@ while read DPID; do
 	values=""
 	##
 	## generic keywords
-	ra=`less $HDRfile | grep 'RA      =' | awk -F " " '{print $3}'`
-	dec=`less $HDRfile | grep 'DEC     =' | awk -F " " '{print $3}'`
-	dateobs=`less $HDRfile | grep DATE-OBS | awk -F "'" '{print $2}'`
+	ra=`less $HDRfile | grep -m 1 'RA      =' | awk -F " " '{print $3}'`
+	dec=`less $HDRfile | grep -m 1 'DEC     =' | awk -F " " '{print $3}'`
+	dateobs=`less $HDRfile | grep -m 1 DATE-OBS | awk -F "'" '{print $2}'`
 	night=`whichnight_date.sh $dateobs`	
 	year=`echo $night | awk -F "-" '{print $1}'`
 
-	lst=`less $HDRfile | grep "LST     =" | awk -F " " '{print $3}'`
-	arcfile=`less $HDRfile | grep "ARCFILE" | awk -F "'" '{print $2}'`
-	alt=`less $HDRfile | grep 'HIERARCH ESO TEL ALT' | awk -F " " '{print $6}'`
-	az=`less $HDRfile | grep 'HIERARCH ESO TEL AZ' | awk -F " " '{print $6}'`
+	lst=`less $HDRfile | grep -m 1 "LST     =" | awk -F " " '{print $3}'`
+	arcfile=`less $HDRfile | grep -m 1 "ARCFILE" | awk -F "'" '{print $2}'`
+	alt=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL ALT' | awk -F " " '{print $6}'`
+	az=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL AZ' | awk -F " " '{print $6}'`
 	##
 	## DPR keywords
-	dprtype=`less $HDRfile | grep 'HIERARCH ESO DPR TYPE' | awk -F "'" '{print $2}'`
-	dprtech=`less $HDRfile | grep 'HIERARCH ESO DPR TECH' | awk -F "'" '{print $2}'`
-	dprcatg=`less $HDRfile | grep 'HIERARCH ESO DPR CATG' | awk -F "'" '{print $2}'`
+	dprtype=`less $HDRfile | grep -m 1 'HIERARCH ESO DPR TYPE' | awk -F "'" '{print $2}'`
+	dprtech=`less $HDRfile | grep -m 1 'HIERARCH ESO DPR TECH' | awk -F "'" '{print $2}'`
+	dprcatg=`less $HDRfile | grep -m 1 'HIERARCH ESO DPR CATG' | awk -F "'" '{print $2}'`
 
 	##
 	## INS keywords
-	filt1=`less $HDRfile | grep 'HIERARCH ESO INS FILT1 NAME' | awk -F "'" '{print $2}'`
-	grat1=`less $HDRfile | grep 'HIERARCH ESO INS GRAT1 NAME' | awk -F "'" '{print $2}'`
+	filt1=`less $HDRfile | grep -m 1 'HIERARCH ESO INS FILT1 NAME' | awk -F "'" '{print $2}'`
+	grat1=`less $HDRfile | grep -m 1 'HIERARCH ESO INS GRAT1 NAME' | awk -F "'" '{print $2}'`
 
 	##
 	## DET keywords
@@ -51,48 +51,48 @@ while read DPID; do
 	## VISIR was offline for upgrade all of 2014 (and before and after)
 	if [ $year -lt "2014" ]; then
 		## old visir
-		dit=`less $HDRfile | grep 'HIERARCH ESO DET DIT = ' | awk -F " " '{print $6}'`
+		dit=`less $HDRfile | grep -m 1 'HIERARCH ESO DET DIT = ' | awk -F " " '{print $6}'`
 	else
 		## new visir (since 2015??)
-		dit=`less $HDRfile | grep 'HIERARCH ESO DET SEQ1 DIT = ' | awk -F " " '{print $7}'`
+		dit=`less $HDRfile | grep -m 1 'HIERARCH ESO DET SEQ1 DIT = ' | awk -F " " '{print $7}'`
 	fi
-	ndit=`less $HDRfile | grep 'HIERARCH ESO DET NDIT = ' | awk -F " " '{print $6}'`
-	exptime=`less $HDRfile | grep 'HIERARCH ESO DET SEQ1 EXPTIME = ' | awk '{print $7}'`
-	chop_ncycles=`less $HDRfile | grep 'HIERARCH ESO DET CHOP NCYCLES = ' | awk '{print $7}'`
+	ndit=`less $HDRfile | grep -m 1 'HIERARCH ESO DET NDIT = ' | awk -F " " '{print $6}'`
+	exptime=`less $HDRfile | grep -m 1 'HIERARCH ESO DET SEQ1 EXPTIME = ' | awk '{print $7}'`
+	chop_ncycles=`less $HDRfile | grep -m 1 'HIERARCH ESO DET CHOP NCYCLES = ' | awk '{print $7}'`
 
 	##
 	## OBS and SEQ keywords
-	prog=`less $HDRfile | grep 'HIERARCH ESO OBS PROG ID = ' | awk -F "'" '{print $2}'`
-	object=`less $HDRfile | grep 'OBJECT  =' | awk -F "'" '{print $2}'`
-	ob_name=`less $HDRfile | grep 'HIERARCH ESO OBS NAME' | awk -F "'" '{print $2}'`
-	chopnod_dir=`less $HDRfile | grep 'HIERARCH ESO SEQ CHOPNOD DIR = ' | awk -F "'" '{print $2}'`
-	nodpos=`less $HDRfile | grep 'HIERARCH ESO SEQ NODPOS = ' | awk -F "'" '{print $2}'`
+	prog=`less $HDRfile | grep -m 1 'HIERARCH ESO OBS PROG ID = ' | awk -F "'" '{print $2}'`
+	object=`less $HDRfile | grep -m 1 'OBJECT  =' | awk -F "'" '{print $2}'`
+	ob_name=`less $HDRfile | grep -m 1 'HIERARCH ESO OBS NAME' | awk -F "'" '{print $2}'`
+	chopnod_dir=`less $HDRfile | grep -m 1 'HIERARCH ESO SEQ CHOPNOD DIR = ' | awk -F "'" '{print $2}'`
+	nodpos=`less $HDRfile | grep -m 1 'HIERARCH ESO SEQ NODPOS = ' | awk -F "'" '{print $2}'`
 
 	##
 	## TEL keywords
-	chop_freq=`less $HDRfile | grep 'HIERARCH ESO TEL CHOP FREQ' | awk -F " " '{print $7}'`
-	parang_start=`less $HDRfile | grep 'HIERARCH ESO TEL PARANG START' | awk -F " " '{print $7}'`
-	parang_end=`less $HDRfile | grep 'HIERARCH ESO TEL PARANG END' | awk -F " " '{print $7}'`
-	chop_posang=`less $HDRfile | grep 'HIERARCH ESO TEL CHOP POSANG' | awk -F " " '{print $7}'`
-	chop_throw=`less $HDRfile | grep 'HIERARCH ESO TEL CHOP THROW' | awk -F " " '{print $7}'`
+	chop_freq=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL CHOP FREQ' | awk -F " " '{print $7}'`
+	parang_start=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL PARANG START' | awk -F " " '{print $7}'`
+	parang_end=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL PARANG END' | awk -F " " '{print $7}'`
+	chop_posang=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL CHOP POSANG' | awk -F " " '{print $7}'`
+	chop_throw=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL CHOP THROW' | awk -F " " '{print $7}'`
 	
 	##
 	## ADA keywords (Adapter-Rotator)	
-	ada_start=`less $HDRfile | grep 'HIERARCH ESO ADA ABSROT START' | awk -F " " '{print $7}'`
-	ada_end=`less $HDRfile | grep 'HIERARCH ESO ADA ABSROT END' | awk -F " " '{print $7}'`
-	ada_posang=`less $HDRfile | grep 'HIERARCH ESO ADA POSANG END' | awk -F " " '{print $7}'`
+	ada_start=`less $HDRfile | grep -m 1 'HIERARCH ESO ADA ABSROT START' | awk -F " " '{print $7}'`
+	ada_end=`less $HDRfile | grep -m 1 'HIERARCH ESO ADA ABSROT END' | awk -F " " '{print $7}'`
+	ada_posang=`less $HDRfile | grep -m 1 'HIERARCH ESO ADA POSANG END' | awk -F " " '{print $7}'`
 	
 	##
 	## AMBI keywords
-	fwhm_start=`less $HDRfile | grep 'HIERARCH ESO TEL AMBI FWHM START = ' | awk -F " " '{print $8}'`
-	fwhm_end=`less $HDRfile | grep 'HIERARCH ESO TEL AMBI FWHM END' | awk -F " " '{print $8}'`
-	irsky_temp=`less $HDRfile | grep 'HIERARCH ESO TEL AMBI IRSKY TEMP = ' | awk -F " " '{print $8}'`
-	iwv_start=`less $HDRfile | grep 'HIERARCH ESO TEL AMBI IWV START = ' | awk -F " " '{print $8}'`
-	press_start=`less $HDRfile | grep 'HIERARCH ESO TEL AMBI PRES START = ' | awk -F " " '{print $8}'`
-	rhum=`less $HDRfile | grep 'HIERARCH ESO TEL AMBI RHUM = ' | awk -F " " '{print $7}'`
-	temp=`less $HDRfile | grep 'HIERARCH ESO TEL AMBI TEMP = ' | awk -F " " '{print $7}'`
-	winddir=`less $HDRfile | grep 'HIERARCH ESO TEL AMBI WINDDIR = ' | awk -F " " '{print $7}'`
-	windspeed=`less $HDRfile | grep 'HIERARCH ESO TEL AMBI WINDSP = ' | awk -F " " '{print $7}'`
+	fwhm_start=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL AMBI FWHM START = ' | awk -F " " '{print $8}'`
+	fwhm_end=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL AMBI FWHM END' | awk -F " " '{print $8}'`
+	irsky_temp=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL AMBI IRSKY TEMP = ' | awk -F " " '{print $8}'`
+	iwv_start=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL AMBI IWV START = ' | awk -F " " '{print $8}'`
+	press_start=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL AMBI PRES START = ' | awk -F " " '{print $8}'`
+	rhum=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL AMBI RHUM = ' | awk -F " " '{print $7}'`
+	temp=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL AMBI TEMP = ' | awk -F " " '{print $7}'`
+	winddir=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL AMBI WINDDIR = ' | awk -F " " '{print $7}'`
+	windspeed=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL AMBI WINDSP = ' | awk -F " " '{print $7}'`
 
 	
 	if [ ! -z "$ra" ]; then
