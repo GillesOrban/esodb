@@ -4,6 +4,7 @@
 ##
 ## CHANGE LOG
 ##
+## 2017-03-20   Added m1temp -- not yet tested!
 ## 2016-11-23   Added several more parameters related to ADA and AMBI, sorted keywords by category (TEL,DET,DPR,...)
 ## 2016-11-14   Added several parameters related to the rotation of the instrument
 ##
@@ -75,6 +76,7 @@ while read DPID; do
 	parang_end=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL PARANG END' | awk -F " " '{print $7}'`
 	chop_posang=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL CHOP POSANG' | awk -F " " '{print $7}'`
 	chop_throw=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL CHOP THROW' | awk -F " " '{print $7}'`
+	m1temp=`less $HDRfile | grep -m 1 'HIERARCH ESO TEL TH M1 TEMP = ' | awk -F " " '{print $8}'`
 	
 	##
 	## ADA keywords (Adapter-Rotator)	
@@ -202,6 +204,10 @@ while read DPID; do
 	if [ ! -z "$chop_throw" ]; then
 		fields+=chop_throw,
 		values+=$chop_throw,
+	fi
+	if [ ! -z "$m1temp" ]; then
+		fields+=m1temp,
+		values+=$m1temp,
 	fi
 	if [ ! -z "$ada_start" ]; then
 		fields+=ada_start,

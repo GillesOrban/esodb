@@ -36,7 +36,6 @@ function update_ins {
 		htmlfiles=$OBSDBLOCAL/data/VISIR/html/*.html
 		dpid_tmp=$OBSDBLOCAL/data/DPID/VISIR.txt
 		dpid_all=$OBSDBLOCAL/data/DPID/VISIR_all.txt
-	fi
 	elif [[ $INS == "GRAVITY" ]]; then
 		table="gravity"
 		instrument="gravity"
@@ -76,14 +75,14 @@ function update_ins {
 	rm $dpid_tmp
 }
 
+echo "Updating OBSDB with VISIR observations..."
+update_ins "VISIR"
+
 echo "Updating OBSDB with SINFONI observations..."
 update_ins "SINFO"
 
 echo "Updating OBSDB with X-SHOOTER observations..."
 update_ins "SHOOT"
-
-echo "Updating OBSDB with VISIR observations..."
-update_ins "VISIR"
 
 echo "Updating OBSDB with GRAVITY observations..."
 update_ins "GRAVITY"
